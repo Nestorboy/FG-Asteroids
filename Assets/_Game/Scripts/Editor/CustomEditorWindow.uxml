@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:GroupBox>
+        <ui:Label text="Hello World! From UXML" display-tooltip-when-elided="true" />
+        <ui:Button text="Button" display-tooltip-when-elided="true" />
+        <ui:MinMaxSlider picking-mode="Ignore" label="Min/Max Slider" min-value="10" max-value="12" low-limit="-10" high-limit="40" />
+        <ui:ProgressBar value="22" title="my-progress" />
+        <ui:DropdownField label="Dropdown" index="-1" choices="0,1,2,3" />
+        <ui:Foldout text="Foldout" />
+        <ui:RadioButtonGroup label="Radio Button Group" value="-1" choices="0,1,2,3" />
+    </ui:GroupBox>
+</ui:UXML>
