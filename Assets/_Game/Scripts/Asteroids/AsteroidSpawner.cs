@@ -11,17 +11,19 @@ namespace Asteroids
         [SerializeField] private float _maxSpawnTime;
         [SerializeField] private int _minAmount;
         [SerializeField] private int _maxAmount;
+        [SerializeField] private SpawnLocation _spawnLocations = SpawnLocation.Top | SpawnLocation.Bottom | SpawnLocation.Left | SpawnLocation.Right;
         
         private float _timer;
         private float _nextSpawnTime;
         private Camera _camera;
 
+        [Flags]
         private enum SpawnLocation
         {
-            Top,
-            Bottom,
-            Left,
-            Right
+            Top = 1 << 0,
+            Bottom = 1 << 1,
+            Left = 1 << 2,
+            Right = 1 << 3,
         }
 
         private void Start()
@@ -60,32 +62,52 @@ namespace Asteroids
 
         private void Spawn()
         {
-            var amount = Random.Range(_minAmount, _maxAmount + 1);
+            if (_spawnLocations == 0)
+                return;
             
-            for (var i = 0; i < amount; i++)
+            int amount = Random.Range(_minAmount, _maxAmount + 1);
+            
+            for (int i = 0; i < amount; i++)
             {
-                var location = GetSpawnLocation();
-                var position = GetStartPosition(location);
+                SpawnLocation location = GetSpawnLocation();
+                Vector3 position = GetStartPosition(location);
                 Instantiate(_asteroidPrefab, position, Quaternion.identity);
             }
         }
 
-        private static SpawnLocation GetSpawnLocation()
+        private SpawnLocation GetSpawnLocation()
         {
-            var roll = Random.Range(0, 4);
-
-            return roll switch
+            int validLocationCount = 0;
+            for (int i = 0; i < 4; i++)
             {
-                1 => SpawnLocation.Bottom,
-                2 => SpawnLocation.Left,
-                3 => SpawnLocation.Right,
-                _ => SpawnLocation.Top
-            };
+                SpawnLocation location = (SpawnLocation)(1 << i);
+                if (!_spawnLocations.HasFlag(location))
+                    continue;
+                
+                validLocationCount++;
+            }
+            
+            int roll = Random.Range(0, validLocationCount);
+
+            int validLocationIndex = 0;
+            for (int i = 0; i < 4; i++)
+            {
+                SpawnLocation location = (SpawnLocation)(1 << i);
+                if (!_spawnLocations.HasFlag(location))
+                    continue;
+                
+                if (validLocationIndex++ != roll)
+                    continue;
+                
+                return location;
+            }
+
+            return 0;
         }
 
         private Vector3 GetStartPosition(SpawnLocation spawnLocation)
         {
-            var pos = new Vector3 { z = Mathf.Abs(_camera.transform.position.z) };
+            Vector3 pos = new Vector3 { z = Mathf.Abs(_camera.transform.position.z) };
             
             const float padding = 5f;
             switch (spawnLocation)
