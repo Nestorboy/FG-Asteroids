@@ -1,11 +1,10 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
-    <ui:GroupBox>
-        <ui:Label text="Hello World! From UXML" display-tooltip-when-elided="true" />
-        <ui:Button text="Button" display-tooltip-when-elided="true" />
-        <ui:MinMaxSlider picking-mode="Ignore" label="Min/Max Slider" min-value="10" max-value="12" low-limit="-10" high-limit="40" />
-        <ui:ProgressBar value="22" title="my-progress" />
-        <ui:DropdownField label="Dropdown" index="-1" choices="0,1,2,3" />
-        <ui:Foldout text="Foldout" />
-        <ui:RadioButtonGroup label="Radio Button Group" value="-1" choices="0,1,2,3" />
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <ui:GroupBox name="Asteroids">
+        <ui:Label text="&lt;b&gt;Asteroids" display-tooltip-when-elided="true" />
+        <uie:ObjectField label="Spawner" type="Asteroids.AsteroidSpawner, Assembly-CSharp" binding-path="_spawner" name="SpawnerField" />
+    </ui:GroupBox>
+    <ui:GroupBox name="Ship">
+        <ui:Label text="&lt;b&gt;Ship" display-tooltip-when-elided="true" />
+        <uie:ObjectField label="Engine" type="Ship.Engine, Assembly-CSharp" name="EngineField" binding-path="_engine" />
     </ui:GroupBox>
 </ui:UXML>
