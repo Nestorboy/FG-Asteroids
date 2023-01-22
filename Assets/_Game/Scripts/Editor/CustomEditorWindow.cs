@@ -3,14 +3,12 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEditor.UIElements;
 
-
 public class CustomEditorWindow : EditorWindow
 {
-    [MenuItem("Window/Nessie/CustomEditorWindow")]
-    public static void ShowExample()
+    [MenuItem("Window/Nessie/Asteroid Manager")]
+    public static void OpenWindow()
     {
-        CustomEditorWindow wnd = GetWindow<CustomEditorWindow>();
-        wnd.titleContent = new GUIContent("CustomEditorWindow");
+        GetWindow<CustomEditorWindow>("Asteroid Manager");
     }
 
     public void CreateGUI()
