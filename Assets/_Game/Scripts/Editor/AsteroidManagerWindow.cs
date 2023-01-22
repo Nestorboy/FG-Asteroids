@@ -85,7 +85,7 @@ public class AsteroidManagerWindow : EditorWindow
         _root = rootVisualElement;
         
         // Import UXML
-        var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/_Game/Scripts/Editor/CustomEditorWindow.uxml");
+        var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/_Game/Scripts/Editor/AsteroidManagerWindow.uxml");
         VisualElement fromUXML = visualTree.Instantiate();
         _root.Add(fromUXML);
         
